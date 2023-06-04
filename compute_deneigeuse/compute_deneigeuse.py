@@ -24,7 +24,9 @@ def compute_price_deneigeuse(graph, paths, district):
         sum_price+= DENEIGEUSE1_DAILY_PRICE if (type == 1) else DENEIGEUSE2_DAILY_PRICE
         (dist, count) = total_dist(graph, path)
         dist/=1000
-        sum_price+= dist* (DENEIGEUSE1_HOUR_PRICE_LT8 if (type == 1) else DENEIGEUSE2_HOUR_PRICE_LT8)
+        dist_price = dist* (DENEIGEUSE1_KM_PRICE if (type == 1) else DENEIGEUSE2_KM_PRICE)
+        time_price = dist* (DENEIGEUSE1_HOUR_PRICE_LT8 if (type == 1) else DENEIGEUSE2_HOUR_PRICE_LT8)
+        sum_price+= dist_price + time_price
         sum_dist += dist
     return (sum_price, sum_dist)
 
