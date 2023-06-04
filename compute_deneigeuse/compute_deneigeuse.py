@@ -14,6 +14,7 @@ all_district = [
 
 res = [None] * len(all_district)
 res2 = [None] * len(all_district)
+graphs = [None] * len(all_district)
 
 def compute_price_deneigeuse(graph, paths):
     sum_price = 0
@@ -33,7 +34,7 @@ def compute_district(district, index):
     (graph, path) = get_euclidian_path(district, log=False)
     list = find_deneigeuse_emplacement(graph, path, DENEIGEUSE_WORKING_DAY)
     res2[index] = compute_price_deneigeuse(graph, list)
-    plot_deneigeuse_path(graph, list, "graph"+str(index))
+    graphs[i] = (graph, list, district)
 
 sum_price = 0
 km = 0
@@ -50,6 +51,10 @@ for i in range(len(res)):
     print(price_district, "price", dist, "km")
     sum_price += price_district
     km+= dist
+
+for (g, p, n) in graphs:
+    plot_deneigeuse_path(g, p, n)
+    
 
 print("total price of deneigeuses:", sum_price)
 print("total distance of deneigeuses:", km)
