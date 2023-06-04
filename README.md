@@ -1,14 +1,11 @@
-# vroom_vroom la deneigeuse
+# Winter Optimization
 
-general:
-    heure travail/j: 8h
+First, you need to setup your environment. To do so, run the following command at the project's root: `pip install -r requirements.txt`.
 
-drone:
-    vitesse: 50km/h
+Next you are given a script to execute the differents parts of our project.
 
+* `./exec -drone` will only run the computation of the drone price and path length.
+* `./exec -snow` will only run the computation of the snowplow part.
+* `./exec -a` will run both parts.
 
-deneigeuses:
-    T1:
-        vitesse: 10km/h
-    T2:
-        vitesse: 20km/h
+All the results will be stored in the file `res.txt`.

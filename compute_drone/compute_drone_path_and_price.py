@@ -26,7 +26,7 @@ for i in range(len(all_district)):
 for i in range(len(res)):
     res[i].join()
     (price_district, drone_km) = res2[i]
-    print(all_district[i] + " done !")
+    # print(all_district[i] + " done !")
     km += drone_km
     sum_price += price_district
 

@@ -23,7 +23,8 @@ DENEIGEUSE2_HOUR_PRICE_GT8= 1.5
 
 tab_color = ["r", "g", "y", "pink", "b", "orange"]
 
-all_district = ["Ahuntsic-Cartierville, Montréal",
+all_district = [
+                "Ahuntsic-Cartierville, Montréal",
                 "Anjou, Montréal",
                 "Côte-des-Neiges-Notre-Dame-de-Grâce, Montréal", 
                 "Lachine, Montréal",
@@ -49,7 +50,7 @@ all_district = ["Ahuntsic-Cartierville, Montréal",
 def get_euclidian_path(district, log=True):
     # setup  
     ox.config(use_cache=True, log_console=log)
-    print("Starting...")
+    # print("Starting...")
     # load montreal graph and convert it to an eulerian graph
     graph = ox.graph_from_place(district, network_type='drive', simplify=True) #simplify
     graph = graph.to_undirected()
