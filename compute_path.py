@@ -19,8 +19,8 @@ DRONE_WORKING_DAY = 8
 DRONE_DAYLY_PRICE = 100
 DRONE_KM_PRICE = 0.01
 
-all_district = ["Ahuntsic-Cartierville, Montréal",
-                "Anjou, Montréal" 
+all_district = [#"Ahuntsic-Cartierville, Montréal",
+                # "Anjou, Montréal",
                 # "Côte-des-Neiges-Notre-Dame-de-Grâce, Montréal", 
                 # "Lachine, Montréal",
                 # "LaSalle, Montréal",
@@ -29,7 +29,7 @@ all_district = ["Ahuntsic-Cartierville, Montréal",
                 # "L'Île-Bizard-Sainte-Geneviève, Montréal",
                 # "Mercier-Hochelaga-Maisonneuve, Montréal",
                 # "Montréal-Nord, Montréal",
-                # "Outremont, Montréal",
+                "Outremont, Montréal"
                 # "Pierrefonds-Roxboro, Montréal",
                 # "Rivière-des-Prairies-Pointe-aux-Trembles, Montréal",
                 # "Rosemont-La Petite-Patrie, Montréal",
@@ -268,30 +268,33 @@ def plot_deneigeuse_path(graph, paths):
 # print(get_drone_price(graph, path))
 # list = find_deneigeuse_emplacement(graph, path, 7)
 # plot_deneigeuse_path(graph, list)
-res = []
 
+res = [None] * len(all_district)
+res2 = [None] * len(all_district)
+print(res)
 
-def do_thing(district):
+def do_thing(district, index):
     print("\033[93mGenerate " + district + " graph...\033[0m")
     (graph, path) = get_euclidian_path(district, log=False)
     (price_district, drone_km) = get_drone_price(graph, path)
     print(district, "price:", price_district)
     print(district, "distance:", drone_km)
-    return (price_district, drone_km)
+    res2[index] = (price_district, drone_km)
 
     
 sum_price = 0
 km = 0
 
-for district in all_district:
-    thread = Thread(target=do_thing, args=(district,))
+for i in range(len(all_district)):
+    thread = Thread(target=do_thing, args=(all_district[i],i))
+    res[i] = thread
     thread.start()
-    res.append(thread)
 
 print("sum of threads")
-for r in res:
-    (price_district, drone_km) = r.join()
-    print(district + "done !")
+for i in range(len(res)):
+    res[i].join()
+    (price_district, drone_km) = res2[i]
+    print(all_district[i] + " done !")
     km += drone_km
     sum_price += price_district
 
